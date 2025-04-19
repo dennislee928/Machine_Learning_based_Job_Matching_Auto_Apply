@@ -1,7 +1,7 @@
 from utils.env_loader import load_env
 from resume_parser import fetch_github_profile
-from vectorizer import vectorize_text
-from ranker import rank_resume
+from vectorizer import generate_vector
+from ranker import rank_jobs
 from letter_generator import generate_cover_letter
 
 
@@ -27,11 +27,11 @@ def main():
     ]
 
     # Vectorize resume and job descriptions
-    resume_vector = vectorize_text(resume_text)
-    job_vectors = [vectorize_text(job_description) for job_description in job_descriptions]
+    resume_vector = generate_vector(resume_text)
+    job_vectors = [generate_vector(job_description) for job_description in job_descriptions]
 
     # Rank job descriptions
-    ranked_jobs, similarity_scores = rank_resume(resume_vector, job_vectors)
+    ranked_jobs, similarity_scores = rank_jobs(resume_vector, job_vectors)
 
     # Generate cover letter for the top job
     top_job_index = ranked_jobs[0]
