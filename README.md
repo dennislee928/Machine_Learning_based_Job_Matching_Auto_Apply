@@ -189,3 +189,25 @@ SNYK_PROJECT_URL=https://app.snyk.io/org/...
     golang-fetcher/ 增加 cloud 資料 fetching client（含 GitHub/R2/Vercel/Snyk）
 
     測試用 curl 或 httpie 指令，模擬整體流程
+
+---
+
+backend-py/
+main.py
+resume_parser.py
+vectorizer.py
+ranker.py
+letter_generator.py
+requirements.txt
+docs/
+implementation_plan.md
+utils/
+env_loader.py
+
+檔案 功能說明
+main.py 主控流程：載入 .env → 擷取履歷 → 向量化 → 生成 Cover Letter
+resume_parser.py 透過 GitHub API 擷取個人公開 repo 描述，作為履歷來源
+vectorizer.py 使用 sentence-transformers 模型生成語意向量
+ranker.py 將履歷向量與職缺向量做 cosine similarity 排序
+letter_generator.py 使用 OpenAI GPT 生成中文 Cover Letter
+utils/env_loader.py 載入 .env 環境變數設定
