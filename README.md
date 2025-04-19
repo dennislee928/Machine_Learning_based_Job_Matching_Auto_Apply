@@ -102,3 +102,90 @@ Example:
 - ✅ Adopt Azure OpenAI Chat Completion for commercial deployment (via MCP free plan).
 - ✅ Implement simple CI/CD: GitHub Actions automatically package resume analysis + push recommendation reports.
 - ✅ AI Resume Review: Combine Scoring model to determine the match score between each JD and your resume.
+
+---
+
+✅ 全免費部署策略（個人使用 + 可展示）
+模組 建議平台 優勢 免費條件 / 限制
+backend/ (Python NLP + GPT) Render Free Web Service 支援 Python Web App，自動部署 CI/CD 每月 750 小時，5 分鐘休眠限制
+golang-fetcher/ (應徵 API) Fly.io Free VM 可部署 Golang REST API，支援 global VM 每月 3,000 VM-min + 3GB volume
+.env 機密管理 Render/Fly.io Secrets 原生支援 .env 設定與機密保管 無需額外費用
+自動化投遞 + 通知 n8n Free Cloud 免費 workflow builder，可串 webhook/Google Sheets 每月 200 workflow 執行
+Resume 可視化頁面 Cloudflare Pages 靜態網頁展示推薦職缺、履歷摘要 無限佈署、免費流量、支援 GitHub Actions
+儲存個人推薦資料 GitHub + Pages 或 Supabase Free DB Git 儲存 Markdown 檔案、自動產出報告 Supabase 有 500MB Free Tier DB
+💡 Microsoft Cloud Partner（MCP）Bonus 加值應用（也都是免費！）
+工具 用途 說明 / 優勢
+Azure OpenAI GPT 生成 Cover Letter 通常有 5~10 萬 token 免費試用額度（可請專案帳號）
+Power Automate 將履歷分析結果推送至 Teams、Email、Line Notify 設定簡單、不用寫程式
+Power BI Embedded 可視化職缺推薦分數 上傳分析表格，自動產生圖表
+Azure Logic Apps 串接外部 webhook → Google Sheet 類似 Zapier，可與 Python REST API 配合
+📦 範例整合架構（免費版全流程）
+
+graph TD
+A[GitHub/R2 履歷] --> B(Python NLP 後端 - Render)
+B --> C{相似度計算 + Cover Letter}
+C --> D[Golang API 投遞 - Fly.io]
+D --> E[職缺平台（104 / Cake）]
+
+B --> F[Cloudflare Pages 靜態展示]
+D --> G[Azure Power Automate 通知你成功/失敗]
+
+🚀 下一步建議
+你想要... 我可以幫你做的事
+自動部署 Python 到 Render 幫你生成 render.yaml + FastAPI backend
+快速部署 Golang 到 Fly.io 幫你做 fly.toml + build script
+MCP 工作流自動化 幫你接 webhook → Power Automate → 你的信箱/Line
+打包推薦職缺頁面 幫你用 Next.js 或 Astro + GitHub Actions 部署 Cloudflare Pages
+
+---
+
+✅ 要補完的內容整理
+🔧 backend-py/ 應具備的模組（Python）
+檔案 功能說明
+main.py 主入口，觸發履歷向量生成 + 呼叫 GPT 產生 Cover Letter
+resume_parser.py 擷取 GitHub/R2/Snyk/Vercel 等來源的履歷內容與專案摘要
+vectorizer.py 使用 Sentence-BERT 轉換成語意向量
+ranker.py 與職缺向量比對，相似度排序推薦
+letter_generator.py 用 OpenAI API 生成自我推薦信
+utils/env_loader.py .env 載入（使用 dotenv）
+docs/implementation_plan.md 原本就有的實行計畫書
+🚀 golang-fetcher/ 功能擴充目標
+
+    讀取 .env 拿取你的 GitHub / R2 / Netlify 等 token 或公開頁面
+
+    建立 fetch client 抓取以下資料：
+
+        GitHub：README、Pinned Repos、Languages
+
+        R2 / Vercel / Netlify：個人展示作品集網址
+
+        Snyk：安全掃描報告頁（可作為資安能力證明）
+
+🌱 建議的 .env 結構
+
+# OpenAI / GPT 用
+
+OPENAI_API_KEY=...
+
+# GitHub
+
+GITHUB_USERNAME=dennislee928
+GITHUB_TOKEN=...
+
+# R2 / Vercel / Netlify 公開頁
+
+PORTFOLIO_R2_URL=https://r2.dev/...
+PORTFOLIO_VERCEL=https://xxx.vercel.app
+PORTFOLIO_NETLIFY=https://xxx.netlify.app
+
+# Snyk 安全報告（可公開 link）
+
+SNYK_PROJECT_URL=https://app.snyk.io/org/...
+
+🧩 我可以幫你產出這些：
+
+    backend-py/ 全部需要的 Python 檔案（含 .env 支援）
+
+    golang-fetcher/ 增加 cloud 資料 fetching client（含 GitHub/R2/Vercel/Snyk）
+
+    測試用 curl 或 httpie 指令，模擬整體流程
