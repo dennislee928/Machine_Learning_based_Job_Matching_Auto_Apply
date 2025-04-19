@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "後端工程師 (Golang)",
+    "company": "Bitoex",
+    "description": "負責開發與維護交易所後端服務，熟悉 Golang 與 RESTful API 設計，熟悉 Git 與 CI/CD 流程。"
+  },
+  {
+    "id": 2,
+    "title": "雲端安全工程師",
+    "company": "VicOne",
+    "description": "分析車用韌體與雲端資安架構，具備 Python 靜態分析與資安事件調查經驗佳。"
+  },
+  {
+    "id": 3,
+    "title": "全端工程師",
+    "company": "鏡週刊",
+    "description": "使用 Next.js 與 GraphQL 開發 SEO 最佳化內容平台，對開源文化有熱情。"
+  },
+  {
+    "id": 4,
+    "title": "資安自動化平台開發",
+    "company": "Security Startup",
+    "description": "擅長整合 Snyk、GitHub Action、Cloudflare WAF 並建構自動化分析平台者佳。"
+  },
+  {
+    "id": 5,
+    "title": "DevOps 工程師",
+    "company": "Web3 Startup",
+    "description": "熟悉 Terraform、GCP、Cloudflare Pages 與自動化部署最佳實務，會 Golang 佳。"
+  }
+]
